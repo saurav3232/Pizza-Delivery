@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const nodemailer = require("nodemailer");
 const authenticate = require("../middlewares/auth");
 const randomstring = require("randomstring");
@@ -90,23 +91,34 @@ router.post("/register", async (req, res) => {
     let { name, email, password } = req.body;
     let user = await User.findOne({ email: email });
     if (user) {
-      return res.status(201).json({ msg: "User already exist" });
+      return res.status(201).json({ msg: "User already exists" });
     } else {
-      let salt = await bcrypt.genSalt(10); // salt is actually encrypted password
-      password = await bcrypt.hash(password, salt); //password=saltF
+      let salt = await bcrypt.genSalt(10);
+      password = await bcrypt.hash(password, salt);
       let avatar =
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTOkHm3_mPQ5PPRvGtU6Si7FJg8DVDtZ47rw&usqp=CAU";
+
       user = new User({ name, email, password, avatar });
       let userData = await user.save();
+
+      let userProfile = new Profile({
+        user: userData._id,
+        name,
+        email,
+        avatar,
+      });
+      await userProfile.save();
       sendVerifyMail(name, email, userData._id);
+
       res.status(200).json({
-        msg: "Registration is Successful, Please Check your email to verify",
+        msg: "Registration is successful. Please check your email to verify.",
       });
     }
   } catch (error) {
     return res.status(500).json({ errors: [{ msg: error.message }] });
   }
 });
+
 /*
     @usage : to verify registration of a User
     @url : /api/users/verify-register
@@ -153,6 +165,14 @@ router.post("/admin-register", async (req, res) => {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTOkHm3_mPQ5PPRvGtU6Si7FJg8DVDtZ47rw&usqp=CAU";
         user = new User({ name, email, password, avatar, isAdmin: true });
         let userData = await user.save();
+        let userProfile = new Profile({
+          user: userData._id,
+          name,
+          email,
+          avatar,
+          isAdmin:userData.isAdmin,
+        });
+        await userProfile.save();
         sendVerifyMail(name, email, userData._id);
         res.status(200).json({
           msg: "Registration is Successful, Please Check your email to verify",
@@ -183,11 +203,13 @@ router.post("/login", async (req, res) => {
       if (passwordMatch) {
         if (userData.isVerified === false) {
           return res.status(203).json({ msg: "Please verify your email" });
-        } 
-        else if(userData.isAdmin===true){
-          return res.status(204).json({msg:"You are registered as admin, please login as admin"})
-        }
-        else {
+        } else if (userData.isAdmin === true) {
+          return res
+            .status(204)
+            .json({
+              msg: "You are registered as admin, please login as admin",
+            });
+        } else {
           let payload = {
             user: {
               id: userData._id,
@@ -235,11 +257,11 @@ router.post("/admin-login", async (req, res) => {
       if (passwordMatch) {
         if (userData.isVerified === false) {
           return res.status(203).json({ msg: "Please verify your email" });
-        } 
-        else if(userData.isAdmin===false){
-          return res.status(205).json({msg:"You are not registered as admin"});
-        }
-        else {
+        } else if (userData.isAdmin === false) {
+          return res
+            .status(205)
+            .json({ msg: "You are not registered as admin" });
+        } else {
           let payload = {
             user: {
               id: userData._id,
@@ -336,7 +358,7 @@ router.get("/forget-password", async (req, res) => {
     const token = req.query.token;
     let tokenData = await User.findOne({ token: token });
     if (tokenData) {
-      return res.status(200).render("reset-password",{id:tokenData._id})
+      return res.status(200).render("reset-password", { id: tokenData._id });
     } else {
       return res.status(301).json({ msg: "Unauthorized token access" });
     }
@@ -347,15 +369,17 @@ router.get("/forget-password", async (req, res) => {
 
 router.post("/reset-password", async (req, res) => {
   try {
-    let password = req.body.password
-    let id= req.body.id;
+    let password = req.body.password;
+    let id = req.body.id;
     let salt = await bcrypt.genSalt(10); // salt is actually encrypted password
     password = await bcrypt.hash(password, salt);
     const updatedData = await User.findByIdAndUpdate(
       { _id: id },
       { $set: { password: password, token: "" } }
     );
-    res.render("success", { msg: "Password updated Successfully, go to login" });
+    res.render("success", {
+      msg: "Password updated Successfully, go to login",
+    });
   } catch (error) {
     return res.status(302).json({ msg: error.message });
   }
@@ -391,7 +415,7 @@ router.post("/admin/reset-password", async (req, res) => {
  */
 router.get("/me", authenticate, async (request, response) => {
   try {
-    let user = await User.findById(request.user.id).select("-password");
+    let user = await Profile.findOne({user:request.user.id})
     response.status(200).json({
       user: user,
     });

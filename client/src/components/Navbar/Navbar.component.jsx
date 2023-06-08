@@ -1,22 +1,84 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
+import "./navbarComp.styles.css";
+import Swal from "sweetalert2";
+import axios from "axios";
 const NavbarComp = () => {
   // const [user, setUser] = useState(null);
-  const {currentUser,setCurrentUser}=useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const [editingName, setEditingName] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [editingNumber, setEditingNumber] = useState(false);
+  const [newNumber, setNewNumber] = useState("");
   const navigate = useNavigate();
   let clickLogOut = async () => {
     localStorage.removeItem("pizzza");
     setCurrentUser(null); // Reset the user state
     navigate("/users/login");
   };
+  useEffect(() => {
+    if (currentUser) {
+      setNewName(currentUser.name);
+      setNewNumber(currentUser.contact);
+    }
+  }, [currentUser]);
+
+  const updateName = async () => {
+    if (newName === "") {
+      Swal.fire("Name cannot be empty", "", "error");
+      return;
+    } else {
+      let url = "http://localhost:5000/api/users/profiles/update-name",
+        requestData = { newName: newName };
+      const { status, data } = await axios.post(url, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("pizzza")}`,
+        },
+      });
+      if (status === 200) {
+        console.log(data.userData);
+        setCurrentUser(data.userData);
+      } else {
+        Swal.fire("Oh no something went wrong, Try agin later");
+        return;
+      }
+    }
+    setEditingName(!editingName);
+  };
+
+  const updateNumber = async () => {
+    if (newNumber === "") {
+      Swal.fire("Name cannot be empty", "", "error");
+      return;
+    } else {
+      let url = "http://localhost:5000/api/users/profiles/update-number",
+        requestData = { newNumber: newNumber};
+      const { status, data } = await axios.post(url, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("pizzza")}`,
+        },
+      });
+      if (status === 200) {
+        // console.log(data.userData);
+        setCurrentUser(data.userData);
+      } else {
+        Swal.fire("Oh no something went wrong, Try agin later");
+        return;
+      }
+    }
+    setEditingNumber(!editingNumber);
+  };
+
   return (
     <>
       {console.log(currentUser)}
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            Navbar
+            Pizzza
           </Link>
           <button
             className="navbar-toggler"
@@ -57,14 +119,127 @@ const NavbarComp = () => {
                 </li>
               )}
             </ul>
-            <li className="nav-item" style={{ listStyle: "none" }}>
-              <Link className="nav-link active" aria-current="page" to="/">
-                My Profile
-              </Link>
-            </li>
+            {currentUser && (
+              <li className="nav-item" style={{ listStyle: "none" }}>
+                <Link
+                  className="nav-link "
+                  aria-current="page"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight"
+                  aria-controls="offcanvasRight"
+                >
+                  My Account
+                </Link>
+              </li>
+            )}
           </div>
         </div>
       </nav>
+      {currentUser && (
+        <div
+          className="offcanvas offcanvas-end"
+          data-bs-scroll="true"
+          tabIndex="-1"
+          id="offcanvasRight"
+          aria-labelledby="offcanvasRightLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasRightLabel">
+              My Account
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            <div className="profile-img-container">
+              <img
+                src={currentUser.avatar}
+                alt="userImg"
+                className="img-fluid"
+              />
+            </div>
+            <div className="profile-extras">
+              <div className="profile-name mt-2">
+                {editingName ? (
+                  <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => {
+                      setNewName(e.target.value);
+                      console.log(newName);
+                    }}
+                  />
+                ) : (
+                  newName
+                )}
+                {editingName === false && (
+                  <button
+                    className="btn btn-danger me-2 ms-2 btn-sm"
+                    onClick={() => {
+                      setEditingName(!editingName);
+                    }}
+                  >
+                    <i className="bi bi-pencil-fill"></i>
+                  </button>
+                )}
+                {editingName && (
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={updateName}
+                  >
+                    <i className="bi bi-check2"></i>
+                  </button>
+                )}
+              </div>
+              <div className="profile-email mt-2">
+                <i className="bi bi-envelope-fill">:{currentUser.email}</i>
+              </div>
+              <div className="profile-contact mt-2">
+                <i className="bi bi-telephone-fill"></i>:
+                {editingNumber ? (
+                  <input
+                    type="text"
+                    value={newNumber}
+                    onChange={(e) => {
+                      setNewNumber(e.target.value);
+                      // console.log(newName);
+                    }}
+                  />
+                ) : (
+                  newNumber
+                )}
+                {editingNumber === false && (
+                  <button
+                    className="btn btn-danger me-2 ms-2 btn-sm"
+                    onClick={() => {
+                      setEditingNumber(!editingNumber);
+                    }}
+                  >
+                    <i className="bi bi-pencil-fill"></i>
+                  </button>
+                )}
+                {editingNumber && (
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={updateNumber}
+                  >
+                    <i className="bi bi-check2"></i>
+                  </button>
+                )}
+              </div>
+
+              <Link className="mt-2">My Orders</Link>
+              <Link className="mt-2" to="/users/profile/myaddresses">
+                My Addresses
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

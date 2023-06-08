@@ -1,0 +1,34 @@
+.profile-img-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.profile-extras{
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.profile-name{
+    display: flex;
+    max-width: fit-content;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-contact{
+    display: flex;
+    max-width: fit-content;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+/* .navInput{
+    border: none;
+    outline: none;
+    caret-color: transparent;
+    max-width:fit-content
+} */

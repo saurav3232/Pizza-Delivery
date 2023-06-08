@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 let authenticate = async (request, response, next) => {
+  // console.log(request.headers);
   try {
     let token;
     if (

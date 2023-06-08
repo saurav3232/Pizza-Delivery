@@ -1,0 +1,8 @@
+.card{
+    max-width:18rem
+}
+.indicard-btns{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: flex-start;
+}

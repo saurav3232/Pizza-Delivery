@@ -52,6 +52,8 @@ app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server is live" });
 });
 app.use("/api/users", require("./routes/userRouter"));
+app.use("/api/users",require("./routes/profileRouter"))
+
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
