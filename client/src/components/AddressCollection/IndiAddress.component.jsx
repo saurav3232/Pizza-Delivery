@@ -23,18 +23,6 @@ const IndiAddressComp = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-//   const handleEditClick = () => {
-//     setFormData({
-//       houseNumber: addressObj.houseNumber || "",
-//       road: addressObj.road || "",
-//       city: addressObj.city || "",
-//       landmark: addressObj.landmark || "",
-//       pincode: addressObj.pincode || "",
-//       uid: addressObj.uid || "",
-//     });
-//     setEditingAddress(!editingAddress);
-//   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let url = "http://localhost:5000/api/users/profiles/update-address";
@@ -116,9 +104,9 @@ const IndiAddressComp = (props) => {
           <div className="indicard-btns"></div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <div className="mb-3 input-group">
-            <span className="input-group-text" id="basic-addon1">
+            <span className="input-group-text form-background" id="basic-addon1" >
               House/Flat Number
             </span>
             <input
@@ -132,7 +120,7 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text" id="basic-addon2">
+            <span className="input-group-text form-background" id="basic-addon2">
               Road
             </span>
             <input
@@ -146,7 +134,7 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text" id="basic-addon3">
+            <span className="input-group-text form-background" id="basic-addon3">
               City
             </span>
             <input
@@ -160,7 +148,7 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text" id="basic-addon4">
+            <span className="input-group-text form-background" id="basic-addon4">
               Landmark
             </span>
             <input
@@ -174,7 +162,7 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text" id="basic-addon5">
+            <span className="input-group-text form-background" id="basic-addon5">
               Pincode
             </span>
             <input

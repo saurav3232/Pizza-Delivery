@@ -54,7 +54,7 @@ const NavbarComp = () => {
       return;
     } else {
       let url = "http://localhost:5000/api/users/profiles/update-number",
-        requestData = { newNumber: newNumber};
+        requestData = { newNumber: newNumber };
       const { status, data } = await axios.post(url, requestData, {
         headers: {
           "Content-Type": "application/json",
@@ -75,9 +75,9 @@ const NavbarComp = () => {
   return (
     <>
       {console.log(currentUser)}
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg sticky-top bg-body-tertiary w-100 bg-success navbar-default ">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand nav-custom-color" to="/">
             Pizzza
           </Link>
           <button
@@ -94,26 +94,33 @@ const NavbarComp = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link className="nav-link active nav-custom-color" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
               {currentUser ? (
-                <li className="nav-item">
-                  <Link to="/" className="nav-link" onClick={clickLogOut}>
-                    LogOut
-                  </Link>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <Link to="/" className="nav-link nav-custom-color">
+                      Menu
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/" className="nav-link nav-custom-color" onClick={clickLogOut}>
+                      LogOut
+                    </Link>
+                  </li>
+                </>
               ) : (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/users/login">
+                  <Link className="nav-link nav-custom-color" to="/users/login">
                     SignIn/Up
                   </Link>
                 </li>
               )}
               {currentUser && currentUser.isAdmin && (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link nav-custom-color" to="/users/inventory">
                     Inventory
                   </Link>
                 </li>
@@ -122,7 +129,7 @@ const NavbarComp = () => {
             {currentUser && (
               <li className="nav-item" style={{ listStyle: "none" }}>
                 <Link
-                  className="nav-link "
+                  className="nav-link nav-custom-color "
                   aria-current="page"
                   data-bs-toggle="offcanvas"
                   data-bs-target="#offcanvasRight"
@@ -137,7 +144,7 @@ const NavbarComp = () => {
       </nav>
       {currentUser && (
         <div
-          className="offcanvas offcanvas-end"
+          className="offcanvas offcanvas-end offcanvas-background"
           data-bs-scroll="true"
           tabIndex="-1"
           id="offcanvasRight"
@@ -232,8 +239,8 @@ const NavbarComp = () => {
                 )}
               </div>
 
-              <Link className="mt-2">My Orders</Link>
-              <Link className="mt-2" to="/users/profile/myaddresses">
+              <Link className="mt-2 link-custom-color">My Orders</Link>
+              <Link className="mt-2 link-custom-color" to="/users/profile/myaddresses">
                 My Addresses
               </Link>
             </div>

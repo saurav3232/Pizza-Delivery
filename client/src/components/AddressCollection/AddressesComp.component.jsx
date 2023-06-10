@@ -64,11 +64,11 @@ const AddressesComp = () => {
       {/* {console.log(addressArr)} */}
       {addressArr.length > 0 ? (
         <div>
-          <h1 style={{ textAlign: "center" }} className="mb-5 mt-4">
+          <h1 style={{ textAlign: "center",color:"azure" }} className="mb-5 mt-4">
             My Address
           </h1>
           <div className="container text-center">
-            <div className="row">
+            <div className="row ">
               {addressArr.map((addressObj, idx) => (
                 <div className="col-sm mb-5" key={addressObj.uid}>
                   <IndiAddressComp address={addressObj} index={idx} />
@@ -78,7 +78,7 @@ const AddressesComp = () => {
           </div>
         </div>
       ) : (
-        <h1 style={{ textAlign: "center" }} className="mb-5 mt-4">
+        <h1 style={{ textAlign: "center" ,color:"azure"}} className="mb-5 mt-4">
           No saved Addresses
         </h1>
       )}

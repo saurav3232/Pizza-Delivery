@@ -1,8 +1,12 @@
 .card{
-    max-width:18rem
+    width:15rem
 }
 .indicard-btns{
     display: flex;
     flex-wrap:wrap;
     justify-content: flex-start;
+}
+.form-background{
+    background-color:  blueviolet!important;
+    color:azure!important;
 }

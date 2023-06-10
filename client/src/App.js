@@ -7,6 +7,8 @@ import Login from "./components/login/Login.compnent";
 import { UserProvider } from "./Contexts/UserContext";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword.component";
 import AddressesComp from "./components/AddressCollection/AddressesComp.component";
+import Inventory from "./components/Inventory/Inventory.component";
+import ManageStocks from "./components/StockManagement/Manage_stocks.component";
 const App = () => {
   return (
     <>
@@ -19,6 +21,8 @@ const App = () => {
             <Route path="/users/register" element={<Register />} />
             <Route path="/users/reset-password" element={<ForgetPassword/>}/>
             <Route path="/users/profile/myaddresses" element={<AddressesComp/>}/>
+            <Route path="/users/inventory"  element={<Inventory/>}/>
+            <Route path="/users/inventory/manage-stocks"  element={<ManageStocks/>}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>

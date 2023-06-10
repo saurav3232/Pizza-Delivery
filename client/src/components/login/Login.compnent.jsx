@@ -115,13 +115,10 @@ const Login = () => {
     <MDBContainer
       fluid
       className="d-flex align-items-center justify-content-center bg-image"
-      style={{
-        backgroundImage:
-          "url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)",
-      }}
+    
     >
       <div className="mask gradient-custom-3"></div>
-      <MDBCard className="m-5" style={{ maxWidth: "600px" }}>
+      <MDBCard className="m-5" style={{ width: "600px" }}>
         <MDBCardBody className="px-5">
           <h2 className="text-uppercase text-center mb-5">
             Login to your account

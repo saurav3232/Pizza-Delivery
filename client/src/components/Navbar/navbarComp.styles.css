@@ -26,6 +26,21 @@
     align-items: center;
 
 }
+
+
+.nav-custom-color{
+    /* background-color: transparent; */
+    color: bisque !important;
+}
+
+.offcanvas-background{
+    background-color:  #00cdac !important;
+    color:azure!important;
+}
+.link-custom-color{
+    color:azure !important;
+}
+
 /* .navInput{
     border: none;
     outline: none;

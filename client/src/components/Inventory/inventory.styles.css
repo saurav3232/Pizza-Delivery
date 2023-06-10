@@ -1,0 +1,28 @@
+.inventory-container {
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+
+}
+
+.indi-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height:10rem;
+    width:10rem;
+    font-size: 2rem;
+    background-color:aliceblue;
+    border: 5px solid   #5b86e5;
+    border-radius: 20px;
+    background-color: #734b6d;
+    color:white;
+    margin:10px;
+    cursor: pointer;
+}
+.indi-box:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
