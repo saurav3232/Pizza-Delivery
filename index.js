@@ -54,6 +54,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/users",require("./routes/profileRouter"))
 app.use("/api/admin/manage-stocks",require("./routes/stockRouter"))
+app.use("/api/admin/manage-pizza",require("./routes/pizzaRouter"))
+
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);

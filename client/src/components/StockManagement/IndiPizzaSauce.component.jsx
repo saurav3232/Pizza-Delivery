@@ -89,7 +89,7 @@ const IndiPizzaSauceComp = (props) => {
           <div className="card-header">{pizzaSauceObj.sauceName}</div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              Pizza Sauce Quantity(bottles):{pizzaSauceObj.sauceQuantity}
+              Pizza Sauce Quantity(ml):{pizzaSauceObj.sauceQuantity}
             </li>
             <li className="list-group-item">
               <button
@@ -134,7 +134,7 @@ const IndiPizzaSauceComp = (props) => {
               className="input-group-text form-background"
               id="basic-addon1"
             >
-              Sauce Quantity(bottles)
+              Sauce Quantity(ml)
             </span>
             <input
               type="number"

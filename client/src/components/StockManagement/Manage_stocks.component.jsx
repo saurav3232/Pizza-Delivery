@@ -489,7 +489,7 @@ const ManageStocks = () => {
                       </div>
                       <div className="mb-3 input-group">
                         <span className="input-group-text" id="basic-addon1">
-                          Sauce Quantity(bottles)
+                          Sauce Quantity(ml)
                         </span>
                         <input
                           type="text"

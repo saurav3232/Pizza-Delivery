@@ -9,6 +9,7 @@ import ForgetPassword from "./components/ForgetPassword/ForgetPassword.component
 import AddressesComp from "./components/AddressCollection/AddressesComp.component";
 import Inventory from "./components/Inventory/Inventory.component";
 import ManageStocks from "./components/StockManagement/Manage_stocks.component";
+import ManagePizza from "./components/PizzaManagement/ManagePizza.component";
 const App = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/users/profile/myaddresses" element={<AddressesComp/>}/>
             <Route path="/users/inventory"  element={<Inventory/>}/>
             <Route path="/users/inventory/manage-stocks"  element={<ManageStocks/>}/>
+            <Route path="/users/inventory/manage-pizza"  element={<ManagePizza/>}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>
