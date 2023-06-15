@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import IndiAddressComp from "./IndiAddress.component";
 
-const AddressesComp = () => {
+const AddressesComp = (props) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const [addressArr, setAddressArr] = useState([]);
+  const renderAddAddress=props.renderAddAddress;
+  // console.log(renderAddAddress);
   const [formData, setFormData] = useState({
     houseNumber: "",
     road: "",
@@ -71,7 +73,7 @@ const AddressesComp = () => {
             <div className="row ">
               {addressArr.map((addressObj, idx) => (
                 <div className="col-sm mb-5" key={addressObj.uid}>
-                  <IndiAddressComp address={addressObj} index={idx} />
+                  <IndiAddressComp address={addressObj} index={idx} renderAddAddress={renderAddAddress}/>
                 </div>
               ))}
             </div>
@@ -82,14 +84,14 @@ const AddressesComp = () => {
           No saved Addresses
         </h1>
       )}
-      <button
+      {renderAddAddress===undefined && <button
         type="button"
         className="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
         Add New Address
-      </button>
+      </button>}
 
       <div
         className="modal fade"

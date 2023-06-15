@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 const IndiAddressComp = (props) => {
   const addressObj = props.address;
   const idx = props.index;
+  const renderAddAddress = props.renderAddAddress;
+  // console.log(renderAddAddress);
   const { setCurrentUser } = useContext(UserContext);
   const [editingAddress, setEditingAddress] = useState(false);
   const [formData, setFormData] = useState({
@@ -84,29 +86,36 @@ const IndiAddressComp = (props) => {
             <li className="list-group-item">Landmark: {addressObj.landmark}</li>
             <li className="list-group-item">Pincode: {addressObj.pincode}</li>
             <li className="list-group-item">
-              <button
-                className="btn btn-primary me-2 ms-2 btn-sm"
-                // onClick={handleEditClick}
-                onClick={() => {
-                  setEditingAddress(!editingAddress);
-                }}
-              >
-                <i className="bi bi-pencil-fill"></i>
-              </button>
-              <button
-                className="btn btn-danger me-2 ms-2 btn-sm"
-                onClick={deleteAddress}
-              >
-                <i className="bi bi-trash-fill"></i>
-              </button>
+              {renderAddAddress===undefined && (
+                <>
+                  <button
+                    className="btn btn-primary me-2 ms-2 btn-sm"
+                    // onClick={handleEditClick}
+                    onClick={() => {
+                      setEditingAddress(!editingAddress);
+                    }}
+                  >
+                    <i className="bi bi-pencil-fill"></i>
+                  </button>
+                  <button
+                    className="btn btn-danger me-2 ms-2 btn-sm"
+                    onClick={deleteAddress}
+                  >
+                    <i className="bi bi-trash-fill"></i>
+                  </button>
+                </>
+              )}
             </li>
           </ul>
           <div className="indicard-btns"></div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <div className="mb-3 input-group">
-            <span className="input-group-text form-background" id="basic-addon1" >
+            <span
+              className="input-group-text form-background"
+              id="basic-addon1"
+            >
               House/Flat Number
             </span>
             <input
@@ -120,7 +129,10 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text form-background" id="basic-addon2">
+            <span
+              className="input-group-text form-background"
+              id="basic-addon2"
+            >
               Road
             </span>
             <input
@@ -134,7 +146,10 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text form-background" id="basic-addon3">
+            <span
+              className="input-group-text form-background"
+              id="basic-addon3"
+            >
               City
             </span>
             <input
@@ -148,7 +163,10 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text form-background" id="basic-addon4">
+            <span
+              className="input-group-text form-background"
+              id="basic-addon4"
+            >
               Landmark
             </span>
             <input
@@ -162,7 +180,10 @@ const IndiAddressComp = (props) => {
             />
           </div>
           <div className="mb-3 input-group">
-            <span className="input-group-text form-background" id="basic-addon5">
+            <span
+              className="input-group-text form-background"
+              id="basic-addon5"
+            >
               Pincode
             </span>
             <input

@@ -47,7 +47,7 @@ const ManagePizza = () => {
           />
           <div className="container-fluid text-center">
             <div className="row">
-              <h1 style={{"color":"white"}}>Veg Pizzas</h1>
+              <h1 style={{ color: "white" }}>Veg Pizzas</h1>
               {vegPizzaArr.map((pizzaDetails, idx) => (
                 <div className="col-sm mb-3" key={idx}>
                   <IndiPizzaCard
@@ -60,16 +60,18 @@ const ManagePizza = () => {
             </div>
           </div>
           <div className="nonVeg-pizza container-fluid text-center">
-            <h1 style={{"color":"white"}}>Non-Veg Pizzas</h1>
-            {nonVegPizzaArr.map((pizzaDetails, idx) => (
-              <div className="col-sm mb-3" key={idx}>
-                <IndiPizzaCard
-                  pizzaDetails={pizzaDetails}
-                  setVegPizzaArr={setVegPizzaArr}
-                  setNonVegPizzaArr={setNonVegPizzaArr}
-                />
-              </div>
-            ))}
+            <div className="row">
+              <h1 style={{ color: "white" }}>Non-Veg Pizzas</h1>
+              {nonVegPizzaArr.map((pizzaDetails, idx) => (
+                <div className="col-sm mb-3" key={idx}>
+                  <IndiPizzaCard
+                    pizzaDetails={pizzaDetails}
+                    setVegPizzaArr={setVegPizzaArr}
+                    setNonVegPizzaArr={setNonVegPizzaArr}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ) : (

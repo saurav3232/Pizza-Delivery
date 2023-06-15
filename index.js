@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+
 const cors = require("cors");
 const dotEnv = require("dotenv");
 const bodyParser = require("body-parser");
@@ -13,7 +14,7 @@ different domain than the one that served the web page. By enabling CORS, the Ex
 receive requests from different domains. */
 app.use(cors());
 
-app.set('view engine',"ejs");
+app.set("view engine", "ejs");
 
 /* `app.use(bodyParser.json({limit:"50mb"}));` is configuring the Express app to use the `body-parser`
 middleware to parse incoming JSON data in the request body. The `{limit:"50mb"}` option sets the
@@ -48,14 +49,17 @@ mongoose
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
 
+ 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server is live" });
 });
 app.use("/api/users", require("./routes/userRouter"));
-app.use("/api/users",require("./routes/profileRouter"))
-app.use("/api/admin/manage-stocks",require("./routes/stockRouter"))
-app.use("/api/admin/manage-pizza",require("./routes/pizzaRouter"))
-
+app.use("/api/users", require("./routes/profileRouter"));
+app.use("/api/admin/manage-stocks", require("./routes/stockRouter"));
+app.use("/api/admin/manage-pizza", require("./routes/pizzaRouter"));
+app.use("/api/users/pizza-menu", require("./routes/pizzaMenuRouter"));
+app.use("/api/users/payment",require("./routes/paymentRouter"))
+app.use("/api/users/myorders",require("./routes/orderRouter"));
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);

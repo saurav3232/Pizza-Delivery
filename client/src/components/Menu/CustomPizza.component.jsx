@@ -268,7 +268,7 @@ const AddPizzaComp = (props) => {
   
   return (
     <>
-    {/* {console.log(pizzaformData)} */}
+    {console.log(pizzaformData)}
       <Modal show={show} onHide={() => setShow(false)} scrollable>
         <Modal.Header closeButton>
           <Modal.Title>Add Pizza</Modal.Title>

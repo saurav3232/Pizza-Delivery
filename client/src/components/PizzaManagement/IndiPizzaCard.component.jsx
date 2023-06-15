@@ -41,7 +41,8 @@ const IndiPizzaCard = (props) => {
         <div style={{ position: "relative" }}>
           <img
             src={pizzaData.pizzaAvatar}
-            className="card-img-top"
+            className="card-img-top "
+            style={{"maxHeight":"6rem" }}
             alt="Pizza Pic"
           />
           <div className="card-img-overlay" style={{ top: 0, left: 0 }}>

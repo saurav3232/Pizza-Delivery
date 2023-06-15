@@ -4,9 +4,11 @@ import { UserContext } from "../../Contexts/UserContext";
 import "./navbarComp.styles.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { CartContext } from "../../Contexts/CartContext";
 const NavbarComp = () => {
   // const [user, setUser] = useState(null);
   const { currentUser, setCurrentUser } = useContext(UserContext);
+  const {setCartItems}=useContext(CartContext)
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState("");
   const [editingNumber, setEditingNumber] = useState(false);
@@ -14,7 +16,9 @@ const NavbarComp = () => {
   const navigate = useNavigate();
   let clickLogOut = async () => {
     localStorage.removeItem("pizzza");
+    localStorage.removeItem("pizzaCartItems");
     setCurrentUser(null); // Reset the user state
+    setCartItems([]);
     navigate("/users/login");
   };
   useEffect(() => {
@@ -94,19 +98,30 @@ const NavbarComp = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active nav-custom-color" aria-current="page" to="/">
+                <Link
+                  className="nav-link active nav-custom-color"
+                  aria-current="page"
+                  to="/"
+                >
                   Home
                 </Link>
               </li>
               {currentUser ? (
                 <>
                   <li className="nav-item">
-                    <Link to="/" className="nav-link nav-custom-color">
+                    <Link
+                      to="/users/menu"
+                      className="nav-link nav-custom-color"
+                    >
                       Menu
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/" className="nav-link nav-custom-color" onClick={clickLogOut}>
+                    <Link
+                      to="/"
+                      className="nav-link nav-custom-color"
+                      onClick={clickLogOut}
+                    >
                       LogOut
                     </Link>
                   </li>
@@ -120,24 +135,38 @@ const NavbarComp = () => {
               )}
               {currentUser && currentUser.isAdmin && (
                 <li className="nav-item">
-                  <Link className="nav-link nav-custom-color" to="/users/inventory">
+                  <Link
+                    className="nav-link nav-custom-color"
+                    to="/users/inventory"
+                  >
                     Inventory
                   </Link>
                 </li>
               )}
             </ul>
             {currentUser && (
-              <li className="nav-item" style={{ listStyle: "none" }}>
-                <Link
-                  className="nav-link nav-custom-color "
-                  aria-current="page"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasRight"
-                  aria-controls="offcanvasRight"
-                >
-                  My Account
-                </Link>
-              </li>
+              <ul className="navbar-nav  mb-2 mb-lg-0">
+                <li className="nav-item" style={{ listStyle: "none" }}>
+                  <Link
+                    className="nav-link nav-custom-color "
+                    to="/users/cart"
+                    
+                  >
+                    <i className="bi bi-cart-fill"></i>
+                  </Link>
+                </li>
+                <li className="nav-item" style={{ listStyle: "none" }}>
+                  <Link
+                    className="nav-link nav-custom-color "
+                    aria-current="page"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight"
+                  >
+                    My Account
+                  </Link>
+                </li>
+              </ul>
             )}
           </div>
         </div>
@@ -239,8 +268,11 @@ const NavbarComp = () => {
                 )}
               </div>
 
-              <Link className="mt-2 link-custom-color">My Orders</Link>
-              <Link className="mt-2 link-custom-color" to="/users/profile/myaddresses">
+              <Link className="mt-2 link-custom-color" to="/users/profile/myorders">My Orders</Link>
+              <Link
+                className="mt-2 link-custom-color"
+                to="/users/profile/myaddresses"
+              >
                 My Addresses
               </Link>
             </div>

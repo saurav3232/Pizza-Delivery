@@ -272,7 +272,7 @@ const AddOrUpdatePizza = (props) => {
     <>
       <Modal show={show} onHide={() => setShow(false)} scrollable>
         <Modal.Header closeButton>
-          <Modal.Title>Add or Update Pizza</Modal.Title>
+          <Modal.Title>Update Pizza</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ overflowY: "auto" }}>
           <div className="input-group mb-3">
@@ -282,7 +282,7 @@ const AddOrUpdatePizza = (props) => {
             <input
               type="text"
               className="form-control"
-              placeholder="pizzaName"
+              placeholder="Pizza Name"
               aria-label="pizzaName"
               aria-describedby="basic-addon1"
               value={pizzaformData.pizzaName}
@@ -297,7 +297,7 @@ const AddOrUpdatePizza = (props) => {
             <input
               type="text"
               className="form-control"
-              placeholder="pizzaDescription"
+              placeholder="Pizza Description"
               aria-label="pizzaDescription"
               aria-describedby="basic-addon1"
               value={pizzaformData.pizzaDescription}
