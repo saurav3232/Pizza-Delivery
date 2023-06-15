@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 const dotEnv = require("dotenv");
 const bodyParser = require("body-parser");
-
+const Emitter=require('events');
 const mongoose = require("mongoose");
 
 /* `app.use(cors());` is enabling Cross-Origin Resource Sharing (CORS) for the Express app. CORS is a
@@ -37,6 +37,10 @@ app.use(
   })
 );
 
+const eventEmitter= new Emitter();
+app.set('eventEmitter',eventEmitter);
+
+
 dotEnv.config({ path: "./.env" });
 
 const port = process.env.PORT || 5000;
@@ -60,7 +64,37 @@ app.use("/api/admin/manage-pizza", require("./routes/pizzaRouter"));
 app.use("/api/users/pizza-menu", require("./routes/pizzaMenuRouter"));
 app.use("/api/users/payment",require("./routes/paymentRouter"))
 app.use("/api/users/myorders",require("./routes/orderRouter"));
+app.use("/api/admin/manage-orders",require("./routes/manageOrderRouter"))
 
-app.listen(port, () => {
+
+
+
+const server=app.listen(port, () => {
   console.log(`Server started at port ${port}`);
 });
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true
+  }
+});
+
+
+io.on('connection',(socket)=>{
+  //Join
+  console.log(socket.id)
+
+  socket.on('join',(orderId)=>{
+    console.log(orderId)
+    socket.join(orderId)
+  })
+
+})
+
+
+eventEmitter.on('orderUpdated',(data)=>{
+  io.to(`order_${data.id}`).emit('orderUpdated',data)
+})

@@ -13,7 +13,7 @@ import {
   getPizzaCheese,
 } from "./PizzaManagmentApiCall";
 
-const AddPizzaComp = (props) => {
+const AddPizzaCompCustomer = (props) => {
   const [pizzaBaseArr, setPizzaBaseArr] = useState([]);
   const [veggiesArr, setVeggiesArr] = useState([]);
   const [pizzaSauceArr, setPizzaSauceArr] = useState([]);
@@ -596,4 +596,4 @@ const AddPizzaComp = (props) => {
   );
 };
 
-export default AddPizzaComp;
+export default AddPizzaCompCustomer;

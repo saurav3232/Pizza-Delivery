@@ -112,7 +112,7 @@ const CartCheckoutPage = () => {
       address: deliveryLocation,
       contact: contact,
       totalPrice: total,
-      orderStatus: "payment done",
+      orderStatus: "Payment Done",
       timeOfOrder: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",

@@ -1,17 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import LoadingComponent from "../Loading/Loading.component";
 import IndiPizzaMenuCard from "./IndiPizzaMenuCard.component";
+import { UserContext } from "../../Contexts/UserContext";
 const Menu = () => {
   const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
   useEffect(() => {
-    if (!localStorage.getItem("pizzza")) {
+    if (!currentUser) {
       navigate("/users/login");
     }
     //eslint-disable-next-line
-  }, []);
+  }, [currentUser]);
   const [vegPizzaArr, setVegPizzaArr] = useState([]);
   const [nonVegPizzaArr, setNonVegPizzaArr] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,13 +49,15 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    getVegPizzas().then((res) => {
-      setVegPizzaArr(res);
-    });
-    getNonVegPizzas().then((res) => {
-      setNonVegPizzaArr(res);
-    });
-    setLoading(false);
+    if (currentUser) {
+      getVegPizzas().then((res) => {
+        setVegPizzaArr(res);
+      });
+      getNonVegPizzas().then((res) => {
+        setNonVegPizzaArr(res);
+      });
+      setLoading(false);
+    }
   }, []);
 
   return (

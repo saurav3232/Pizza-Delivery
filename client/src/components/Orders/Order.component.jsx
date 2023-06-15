@@ -4,10 +4,16 @@ import { useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
 import { OrderContext } from "../../Contexts/OrderContext";
+
+
+
 const OrderComp = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const { orderItems } = useContext(OrderContext);
+
+  
+
   console.log(orderItems);
 
   useEffect(() => {
@@ -43,7 +49,6 @@ const OrderComp = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body">
-                  <p>Order Status: {order.orderStatus}</p>
                   <p>Date of Order: {order.dateOfOrder}</p>
                   <p>Time of Order: {order.timeOfOrder}</p>
                   <Link

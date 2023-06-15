@@ -46,6 +46,7 @@ export const OrderProvider = ({ children }) => {
         setOrderItems(res);
       });
     }
+    //eslint-disable-next-line
   }, [currentUser]);
 
   return (
